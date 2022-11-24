@@ -4,6 +4,10 @@ import { useState } from 'react';
 import { ReactComponent as ArrowRightIcon } from '../assets/svg/keyboardArrowRightIcon.svg'
 import visibilityIcon from '../assets/svg/visibilityIcon.svg'
 
+import { toast } from 'react-toastify';
+import OAuth from '../components/OAuth'
+
+
 import {
   getAuth,
   createUserWithEmailAndPassword,
@@ -57,8 +61,7 @@ function SignUp() {
       await setDoc(doc(db, 'users', user.uid), formDataCopy)
       navigate('/')
     } catch (error) {
-     // toast.error('Something went wrong with registration')
-     console.log('Something went wrong with registration')
+     toast.error('Something went wrong with registration')
     }
   }
 
@@ -119,7 +122,7 @@ function SignUp() {
           </div>
         </form>
 
-        {/* <OAuth /> */}
+        <OAuth />
 
         <Link to='/sign-in' className='registerLink'>
           Sign In Instead
