@@ -11,7 +11,6 @@ import {
 } from 'firebase/auth'
 
 import { db } from '../firebase.config';
-import { getFirestore } from "firebase/firestore";
 
 import { setDoc, doc, serverTimestamp } from 'firebase/firestore';
 
@@ -28,7 +27,7 @@ function SignUp() {
   const onChange = (e) => {
     setFormData((prevState) => ({
       ...prevState,
-      [e.target.id]: e.target.value, // this will handle the on chnage both for email and password 
+      [e.target.id]: e.target.value, // this will handle the on change functionality for both email and password 
     }))
   }
 
@@ -51,20 +50,11 @@ function SignUp() {
       })
 
 
-      //navigate('/')
-
-      console.log('First console');
-
       // Below code is for inserting user data into FB firestore db.
       const formDataCopy = { ...formData }
-      delete formDataCopy.password // this will not include the password in the onjet which we will send to fiestore db
-      console.log('T1');
-      //formDataCopy.timestamp = serverTimestamp()
-      console.log('T2');
-      console.log('T2 --->> ',  user.uid);
-      console.log('T2 --->> ',  formDataCopy);
-      await setDoc(doc(getFirestore(), 'users', user.uid), formDataCopy)
-      console.log('Second console');
+      delete formDataCopy.password // here password will not include in the passing object which we will send to fiestore db
+      formDataCopy.timestamp = serverTimestamp()
+      await setDoc(doc(db, 'users', user.uid), formDataCopy)
       navigate('/')
     } catch (error) {
      // toast.error('Something went wrong with registration')
