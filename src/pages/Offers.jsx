@@ -35,6 +35,7 @@ function Offers() {
         // Execute query
         const querySnap = await getDocs(q)
 
+        // for load more functionality
         const lastVisible = querySnap.docs[querySnap.docs.length - 1]
         setLastFetchedListing(lastVisible)
 
